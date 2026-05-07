@@ -1,0 +1,114 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@import url('https://fonts.googleapis.com/css2?family=Amiri:ital,wght@0,400;0,700;1,400;1,700&family=Inter:wght@300;400;500;600;700&display=swap');
+
+@layer base {
+  :root {
+    --color-majorelle: #1B4D3E;
+    --color-safran: #C19A6B;
+    --color-tadelakt: #E8DCC4;
+    --color-bronze: #CD853F;
+  }
+
+  * {
+    @apply box-border;
+  }
+
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    @apply font-inter text-gray-800 bg-tadelakt-50 antialiased;
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    @apply font-amiri font-bold text-majorelle-500;
+  }
+
+  /* RTL Support */
+  [dir="rtl"] {
+    text-align: right;
+  }
+
+  [dir="rtl"] .rtl-flip {
+    transform: scaleX(-1);
+  }
+}
+
+@layer components {
+  .btn-primary {
+    @apply px-6 py-3 bg-majorelle-500 text-white font-semibold rounded-lg 
+           hover:bg-majorelle-600 transition-all duration-300 
+           shadow-md hover:shadow-lg active:scale-95;
+  }
+
+  .btn-secondary {
+    @apply px-6 py-3 bg-safran-500 text-white font-semibold rounded-lg 
+           hover:bg-safran-600 transition-all duration-300 
+           shadow-md hover:shadow-lg active:scale-95;
+  }
+
+  .btn-outline {
+    @apply px-6 py-3 border-2 border-majorelle-500 text-majorelle-500 
+           font-semibold rounded-lg hover:bg-majorelle-50 
+           transition-all duration-300 active:scale-95;
+  }
+
+  .card-moroccan {
+    @apply bg-white rounded-moroccan shadow-lg border border-tadelakt-200 
+           hover:shadow-xl transition-shadow duration-300;
+  }
+
+  .card-moroccan-reverse {
+    @apply bg-white rounded-moroccan-reverse shadow-lg border border-tadelakt-200 
+           hover:shadow-xl transition-shadow duration-300;
+  }
+
+  .input-moroccan {
+    @apply w-full px-4 py-3 rounded-lg border-2 border-tadelakt-300 
+           focus:border-majorelle-500 focus:ring-2 focus:ring-majorelle-100 
+           outline-none transition-all duration-300 bg-white;
+  }
+
+  .arch-header {
+    @apply relative overflow-hidden;
+    border-radius: 0 0 50% 50% / 0 0 20% 20%;
+  }
+
+  .zellige-bg {
+    background-image: 
+      radial-gradient(circle at 20% 50%, rgba(193, 154, 107, 0.1) 0%, transparent 50%),
+      radial-gradient(circle at 80% 50%, rgba(27, 77, 62, 0.05) 0%, transparent 50%);
+  }
+
+  .gradient-text {
+    @apply bg-gradient-to-r from-majorelle-500 to-safran-500 bg-clip-text text-transparent;
+  }
+
+  .nav-item {
+    @apply flex items-center gap-2 px-4 py-2 rounded-lg transition-all duration-300
+           text-gray-600 hover:text-majorelle-500 hover:bg-majorelle-50;
+  }
+
+  .nav-item.active {
+    @apply text-majorelle-500 bg-majorelle-50 font-semibold;
+  }
+}
+
+@layer utilities {
+  .text-balance {
+    text-wrap: balance;
+  }
+
+  .scrollbar-hide {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+
+  .scrollbar-hide::-webkit-scrollbar {
+    display: none;
+  }
+}
