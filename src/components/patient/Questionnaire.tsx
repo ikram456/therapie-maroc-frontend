@@ -120,21 +120,21 @@ export function QuestionnaireForm() {
       case 0:
         return (
           <div className="space-y-6">
-            {renderScoreSelector('anxietyScore', 'Niveau d'anxiété (1-10)')}
-            {renderScoreSelector('depressionScore', 'Niveau de dépression (1-10)')}
-            {renderScoreSelector('stressScore', 'Niveau de stress (1-10)')}
+            {renderScoreSelector('anxietyScore', "Niveau d'anxiété (1-10)")}
+            {renderScoreSelector('depressionScore', "Niveau de dépression (1-10)")}
+            {renderScoreSelector('stressScore', "Niveau de stress (1-10)")}
           </div>
         );
       case 1:
         return (
           <div className="space-y-6">
-            {renderScoreSelector('sleepQuality', 'Qualité du sommeil (1-10)')}
+            {renderScoreSelector('sleepQuality', "Qualité du sommeil (1-10)")}
             <div>
               <label className="block text-sm font-medium text-gray-700 mb-2">
                 Symptômes physiques
               </label>
               <div className="grid grid-cols-2 gap-2">
-                {['Fatigue', 'Maux de tête', 'Tensions musculaires', 'Problèmes digestifs', 'Insomnie', 'Perte d'appétit'].map((symptom) => (
+                {['Fatigue', 'Maux de tête', 'Tensions musculaires', 'Problèmes digestifs', 'Insomnie', "Perte d'appétit"].map((symptom) => (
                   <label key={symptom} className="flex items-center gap-2 p-3 rounded-lg border-2 border-tadelakt-300 cursor-pointer hover:border-majorelle-300 transition-colors">
                     <input
                       type="checkbox"

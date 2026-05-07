@@ -38,7 +38,7 @@ export function VideoSession({ sessionId }: VideoSessionProps) {
         const { videoRoomUrl } = response.data.data;
 
         // Créer l'iframe Daily.co
-        const callFrame = DailyIframe.createFrame(videoRef.current, {
+        const callFrame = DailyIframe.createFrame(videoRef.current as HTMLElement, {
           iframeStyle: {
             width: '100%',
             height: '100%',
