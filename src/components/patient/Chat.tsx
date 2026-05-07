@@ -140,7 +140,7 @@ export function Chat({ connectionId }: { connectionId: string }) {
     try {
       await sendMessageMutation.mutateAsync(content);
     } catch (error) {
-      toast.error('Erreur lors de l envoi du message');
+      toast.error("Erreur lors de l'envoi du message");
     }
   };
 
@@ -302,3 +302,4 @@ export function Chat({ connectionId }: { connectionId: string }) {
     </div>
   );
 }
+
