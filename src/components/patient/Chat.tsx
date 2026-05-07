@@ -302,3 +302,4 @@ export function Chat({ connectionId }: { connectionId: string }) {
     </div>
   );
 }
+
