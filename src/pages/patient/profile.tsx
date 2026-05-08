@@ -27,19 +27,12 @@ export default function ProfilePage() {
     }
   }, [me, reset]);
 
-  const updateMutation = useMutation(
-    async (data: any) => {
-      const response = await api.put('/auth/profile', data);
-      return response.data;
-    },
-    {
+  const updateMutation = useMutation({mutationFn: async (data) => { const response = await api.put('/auth/profile', data); return response.data; },
       onSuccess: () => {
         toast.success('Profil mis à jour !');
         queryClient.invalidateQueries('me');
       },
-      onError: (err) => toast.error(handleApiError(err)),
-    }
-  );
+onError: (err) => toast.error(handleApiError(err)),});
 
   if (isLoading) {
     return (
