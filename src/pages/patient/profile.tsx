@@ -27,7 +27,7 @@ export default function ProfilePage() {
     }
   }, [me, reset]);
 
-  const updateMutation = useMutation({mutationFn: async (data) => { const response = await api.put('/auth/profile', data); return response.data; },
+  const updateMutation = useMutation({mutationFn: async (data: Record<string, any>) => { const response = await api.put('/auth/profile', data); return response.data; },
       onSuccess: () => {
         toast.success('Profil mis à jour !');
         queryClient.invalidateQueries('me');
