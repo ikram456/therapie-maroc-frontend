@@ -60,17 +60,17 @@ export function TherapistList() {
     'Tous',
     'Psychologie clinique',
     'Psychiatrie',
-    'Thérapie cognitivo-comportementale',
+    'Therapie cognitivo-comportementale',
     'Psychanalyse',
-    'Thérapie familiale',
-    'Thérapie de couple',
+    'Therapie familiale',
+    'Therapie de couple',
     'Addictologie',
     'Sexologie',
   ];
 
   const languages = [
     { value: '', label: 'Toutes' },
-    { value: 'FR', label: 'Français' },
+    { value: 'FR', label: 'Francais' },
     { value: 'AR', label: 'Arabe' },
     { value: 'DAR', label: 'Darija' },
   ];
@@ -85,14 +85,14 @@ export function TherapistList() {
     <div className="min-h-screen bg-tadelakt-50 pb-20">
       <div className="bg-majorelle-500 text-white py-8 px-4">
         <div className="max-w-4xl mx-auto">
-          <h1 className="text-3xl font-amiri font-bold mb-4">Nos thérapeutes</h1>
+          <h1 className="text-3xl font-amiri font-bold mb-4">Nos therapeutes</h1>
           <div className="relative">
             <Search className="absolute left-4 top-1/2 -translate-y-1/2 h-5 w-5 text-gray-400" />
             <input
               type="text"
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
-              placeholder="Rechercher par nom ou spécialité..."
+              placeholder="Rechercher par nom ou specialite..."
               className="w-full pl-12 pr-4 py-3 rounded-xl bg-white text-gray-800 focus:outline-none focus:ring-2 focus:ring-safran-500"
             />
           </div>
@@ -100,9 +100,8 @@ export function TherapistList() {
       </div>
 
       <div className="max-w-4xl mx-auto px-4 py-6">
-        {/* Filtres */}
         <div className="mb-6 space-y-4">
-          <div className="flex items-center gap-2 overflow-x-auto pb-2 scrollbar-hide">
+          <div className="flex items-center gap-2 overflow-x-auto pb-2">
             <Filter className="h-5 w-5 text-majorelle-500 shrink-0" />
             {specialties.map((specialty) => (
               <button
@@ -118,7 +117,6 @@ export function TherapistList() {
               </button>
             ))}
           </div>
-
           <div className="flex gap-4">
             <select
               value={selectedLanguage}
@@ -132,7 +130,6 @@ export function TherapistList() {
           </div>
         </div>
 
-        {/* Liste des thérapeutes */}
         {isLoading ? (
           <div className="flex justify-center py-12">
             <div className="animate-spin h-12 w-12 border-t-4 border-majorelle-500 rounded-full" />
@@ -140,7 +137,7 @@ export function TherapistList() {
         ) : filteredTherapists.length === 0 ? (
           <div className="text-center py-12">
             <Heart className="h-16 w-16 text-tadelakt-400 mx-auto mb-4" />
-            <p className="text-gray-600">Aucun thérapeute trouvé</p>
+            <p className="text-gray-600">Aucun therapeute trouve</p>
           </div>
         ) : (
           <div className="space-y-4">
@@ -176,16 +173,15 @@ export function TherapistList() {
                           <div className="flex items-center gap-1 bg-safran-50 px-2 py-1 rounded-lg">
                             <Star className="h-4 w-4 text-safran-500 fill-safran-500" />
                             <span className="text-sm font-bold text-safran-600">
-                              {therapist.rating.toFixed(1)}
+                              {(+therapist.rating).toFixed(1)}
                             </span>
                             <span className="text-xs text-gray-500">({therapist.totalReviews})</span>
                           </div>
                         </div>
-
                         <div className="flex flex-wrap gap-3 mt-3 text-sm text-gray-500">
                           <span className="flex items-center gap-1">
                             <MapPin className="h-4 w-4" />
-                            {therapist.yearsExperience} ans d'expérience
+                            {therapist.yearsExperience} ans experience
                           </span>
                           <span className="flex items-center gap-1">
                             <Globe className="h-4 w-4" />
@@ -193,12 +189,11 @@ export function TherapistList() {
                           </span>
                           <span className="flex items-center gap-1">
                             <DollarSign className="h-4 w-4" />
-                            {therapist.sessionPrice} DH/session
+                            {+therapist.sessionPrice} DH/session
                           </span>
                         </div>
-
                         <div className="flex flex-wrap gap-2 mt-3">
-                          {therapist.specialties.slice(0, 3).map((s) => (
+                          {therapist.specialties?.slice(0, 3).map((s) => (
                             <span
                               key={s.specialtyName}
                               className="px-3 py-1 bg-tadelakt-100 text-tadelakt-700 rounded-full text-xs"
@@ -220,4 +215,3 @@ export function TherapistList() {
     </div>
   );
 }
-
