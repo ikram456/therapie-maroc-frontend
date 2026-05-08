@@ -18,7 +18,7 @@ export default function VideoPage() {
         const response = await api.get(`/sessions/${id}/video`);
         setRoomUrl(response.data.data.videoRoomUrl);
       } catch (err) {
-        toast.error('Impossible de rejoindre la session vidéo');
+        toast.error('Impossible de rejoindre la session vidÃ©o');
         router.push('/patient/sessions');
       } finally {
         setLoading(false);
@@ -33,7 +33,7 @@ export default function VideoPage() {
       <div className="min-h-screen flex items-center justify-center bg-gray-900">
         <div className="text-center text-white">
           <div className="animate-spin h-16 w-16 border-t-4 border-white rounded-full mx-auto mb-4" />
-          <p className="text-lg">Connexion à la session vidéo...</p>
+          <p className="text-lg">Connexion Ã  la session vidÃ©o...</p>
         </div>
       </div>
     );
@@ -44,7 +44,7 @@ export default function VideoPage() {
   return (
     <div className="min-h-screen bg-gray-900 flex flex-col">
       <div className="bg-gray-800 px-4 py-3 flex items-center justify-between">
-        <h1 className="text-white font-bold">Session vidéo</h1>
+        <h1 className="text-white font-bold">Session vidÃ©o</h1>
         <button
           onClick={() => router.push('/patient/sessions')}
           className="bg-red-500 text-white px-4 py-2 rounded-lg hover:bg-red-600 transition-colors"
