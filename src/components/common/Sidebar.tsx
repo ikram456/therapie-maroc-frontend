@@ -2,9 +2,9 @@
 
 import React from 'react';
 import Link from 'next/link';
-import { usePathname } from 'next/navigation';
-import { useAuth } from '@/hooks/useAuth';
-import {
+import { Heart, usePathname } from 'next/navigation';
+import { Heart, useAuth } from '@/hooks/useAuth';
+import { Heart,
   Home,
   MessageCircle,
   Calendar,
@@ -102,4 +102,5 @@ export function Sidebar() {
     </aside>
   );
 }
+
 
