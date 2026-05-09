@@ -69,7 +69,7 @@ export function LoginForm() {
             <Star className="h-12 w-12 text-safran-500" />
           </div>
           <h1 className="text-3xl font-amiri font-bold text-majorelle-500 mb-2">
-            Thérapie Maroc
+            Nafs
           </h1>
           <p className="text-bronze-500 italic">Nafs</p>
         </div>

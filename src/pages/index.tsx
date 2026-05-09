@@ -30,7 +30,7 @@ export default function Home() {
             transition={{ delay: 0.2 }}
             className="text-5xl md:text-6xl font-amiri font-bold mb-4"
           >
-            Thérapie Maroc
+            Nafs
           </motion.h1>
 
           <motion.p
@@ -80,7 +80,7 @@ export default function Home() {
       <section className="py-16 px-4">
         <div className="max-w-6xl mx-auto">
           <h2 className="text-3xl font-amiri font-bold text-center text-majorelle-500 mb-12">
-            Pourquoi choisir Thérapie Maroc?
+            Pourquoi choisir Nafs?
           </h2>
 
           <div className="grid md:grid-cols-3 gap-8">
@@ -172,7 +172,7 @@ export default function Home() {
             ))}
           </div>
           <p className="text-tadelakt-200 text-sm">
-            © 2026 Thérapie Maroc. Tous droits réservés.
+            © 2026 Nafs. Tous droits réservés.
           </p>
         </div>
       </footer>
