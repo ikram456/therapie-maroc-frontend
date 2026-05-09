@@ -21,6 +21,7 @@ const patientNav = [
   { href: '/patient/therapists', label: 'Thérapeutes', icon: Stethoscope },
   { href: '/patient/messages', label: 'Messages', icon: MessageCircle },
   { href: '/patient/sessions', label: 'Séances', icon: Calendar },
+  { href: '/patient/mood', label: 'Humeur', icon: Heart },
   { href: '/patient/profile', label: 'Profil', icon: User },
 ];
 
@@ -101,3 +102,4 @@ export function Sidebar() {
     </aside>
   );
 }
+
