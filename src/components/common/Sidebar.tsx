@@ -1,10 +1,9 @@
 'use client';
-
 import React from 'react';
 import Link from 'next/link';
-import { Heart, usePathname } from 'next/navigation';
-import { Heart, useAuth } from '@/hooks/useAuth';
-import { Heart,
+import { usePathname } from 'next/navigation';
+import { useAuth } from '@/hooks/useAuth';
+import {
   Home,
   MessageCircle,
   Calendar,
@@ -14,13 +13,14 @@ import { Heart,
   BarChart3,
   Settings,
   Shield,
+  Heart,
 } from 'lucide-react';
 
 const patientNav = [
   { href: '/patient/dashboard', label: 'Tableau de bord', icon: Home },
-  { href: '/patient/therapists', label: 'Thérapeutes', icon: Stethoscope },
+  { href: '/patient/therapists', label: 'Therapeutes', icon: Stethoscope },
   { href: '/patient/messages', label: 'Messages', icon: MessageCircle },
-  { href: '/patient/sessions', label: 'Séances', icon: Calendar },
+  { href: '/patient/sessions', label: 'Seances', icon: Calendar },
   { href: '/patient/mood', label: 'Humeur', icon: Heart },
   { href: '/patient/profile', label: 'Profil', icon: User },
 ];
@@ -29,16 +29,16 @@ const therapistNav = [
   { href: '/therapist/dashboard', label: 'Tableau de bord', icon: BarChart3 },
   { href: '/therapist/patients', label: 'Patients', icon: Users },
   { href: '/therapist/messages', label: 'Messages', icon: MessageCircle },
-  { href: '/therapist/sessions', label: 'Séances', icon: Calendar },
+  { href: '/therapist/sessions', label: 'Seances', icon: Calendar },
   { href: '/therapist/profile', label: 'Profil', icon: Settings },
 ];
 
 const adminNav = [
   { href: '/admin/dashboard', label: 'Statistiques', icon: BarChart3 },
   { href: '/admin/users', label: 'Utilisateurs', icon: Users },
-  { href: '/admin/therapists', label: 'Thérapeutes', icon: Stethoscope },
-  { href: '/admin/sessions', label: 'Séances', icon: Calendar },
-  { href: '/admin/settings', label: 'Paramètres', icon: Shield },
+  { href: '/admin/therapists', label: 'Therapeutes', icon: Stethoscope },
+  { href: '/admin/sessions', label: 'Seances', icon: Calendar },
+  { href: '/admin/settings', label: 'Parametres', icon: Shield },
 ];
 
 export function Sidebar() {
@@ -62,16 +62,14 @@ export function Sidebar() {
         <div className="mb-6 p-4 bg-majorelle-50 rounded-moroccan">
           <p className="text-sm text-majorelle-600 font-semibold">
             {user.role === 'PATIENT' && 'Espace Patient'}
-            {user.role === 'THERAPIST' && 'Espace Thérapeute'}
+            {user.role === 'THERAPIST' && 'Espace Therapeute'}
             {user.role === 'ADMIN' && 'Administration'}
           </p>
         </div>
-
         <nav className="space-y-1">
           {navItems.map((item) => {
             const isActive = pathname === item.href;
             const Icon = item.icon;
-
             return (
               <Link
                 key={item.href}
@@ -85,16 +83,12 @@ export function Sidebar() {
           })}
         </nav>
       </div>
-
-      {/* Décoration zellige en bas */}
       <div className="absolute bottom-0 left-0 right-0 p-4 opacity-20">
         <div className="grid grid-cols-4 gap-2">
           {Array.from({ length: 8 }).map((_, i) => (
             <div
               key={i}
-              className={`h-2 w-2 rounded-full ${
-                i % 2 === 0 ? 'bg-safran-500' : 'bg-majorelle-500'
-              }`}
+              className={`h-2 w-2 rounded-full ${i % 2 === 0 ? 'bg-safran-500' : 'bg-majorelle-500'}`}
             />
           ))}
         </div>
@@ -102,5 +96,3 @@ export function Sidebar() {
     </aside>
   );
 }
-
-
