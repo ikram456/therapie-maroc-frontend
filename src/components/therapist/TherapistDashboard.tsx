@@ -5,42 +5,28 @@ import Link from 'next/link';
 import { useQuery } from 'react-query';
 import { api } from '@/utils/api';
 import { motion } from 'framer-motion';
+import { toast } from 'react-hot-toast';
 import {
-  Users,
-  Calendar,
-  TrendingUp,
-  Star,
-  Clock,
-  ChevronRight,
-  CheckCircle,
-  XCircle,
-  DollarSign,
-  BarChart3,
+  Users, Calendar, Star, Clock, ChevronRight,
+  CheckCircle, XCircle, DollarSign, BarChart3,
 } from 'lucide-react';
 
 interface DashboardStats {
   totalPatients: number;
   totalSessions: number;
-  completedSessions: number;
-  upcomingSessions: number;
   totalRevenue: number;
   averageRating: number;
-  recentSessions: Array<{
-    status: string;
-    price: number;
-    createdAt: string;
-  }>;
+  recentSessions: Array<{ status: string; price: number; createdAt: string }>;
 }
 
 interface ConnectionRequest {
   id: string;
   status: string;
   patientMessage?: string;
-  requestedAt: string;
+  createdAt: string;
   patient: {
     firstName: string;
     lastName: string;
-    birthDate?: string;
     gender?: string;
     city?: string;
     user: { profilePicture: string | null };
@@ -72,6 +58,16 @@ export function TherapistDashboard() {
     }
   );
 
+  const handleRespond = async (id: string, status: string) => {
+    try {
+      await api.put(`/connections/${id}/respond`, { status });
+      toast.success(status === 'ACCEPTED' ? 'Demande acceptee !' : 'Demande rejetee');
+      window.location.reload();
+    } catch (e: any) {
+      toast.error(e?.response?.data?.message || 'Erreur');
+    }
+  };
+
   if (statsLoading || requestsLoading) {
     return (
       <div className="min-h-screen flex items-center justify-center">
@@ -82,31 +78,22 @@ export function TherapistDashboard() {
 
   return (
     <div className="min-h-screen bg-tadelakt-50 pb-20">
-      {/* Header */}
       <div className="bg-majorelle-500 text-white py-8 px-4 arch-header">
         <div className="max-w-4xl mx-auto">
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-          >
-            <h1 className="text-3xl font-amiri font-bold mb-2">
-              Tableau de bord
-            </h1>
-            <p className="text-tadelakt-200">
-              Vue d'ensemble de votre activité
-            </p>
+          <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }}>
+            <h1 className="text-3xl font-amiri font-bold mb-2">Tableau de bord</h1>
+            <p className="text-tadelakt-200">Vue d ensemble de votre activite</p>
           </motion.div>
         </div>
       </div>
 
       <div className="max-w-4xl mx-auto px-4 -mt-6">
-        {/* Stats Cards */}
         <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 mb-6">
           {[
             { icon: Users, label: 'Patients', value: stats?.totalPatients || 0, color: 'bg-blue-500' },
-            { icon: Calendar, label: 'Séances', value: stats?.totalSessions || 0, color: 'bg-safran-500' },
+            { icon: Calendar, label: 'Seances', value: stats?.totalSessions || 0, color: 'bg-safran-500' },
             { icon: DollarSign, label: 'Revenus', value: `${stats?.totalRevenue || 0} DH`, color: 'bg-green-500' },
-            { icon: Star, label: 'Note', value: (stats?.averageRating || 0).toFixed(1), color: 'bg-yellow-500' },
+            { icon: Star, label: 'Note', value: (+( stats?.averageRating || 0)).toFixed(1), color: 'bg-yellow-500' },
           ].map((stat, index) => (
             <motion.div
               key={stat.label}
@@ -124,7 +111,6 @@ export function TherapistDashboard() {
           ))}
         </div>
 
-        {/* Demandes en attente */}
         <div className="mb-6">
           <div className="flex items-center justify-between mb-4">
             <h2 className="text-xl font-bold text-majorelle-500">
@@ -163,28 +149,18 @@ export function TherapistDashboard() {
                       )}
                       <p className="text-xs text-gray-400 mt-2 flex items-center gap-1">
                         <Clock className="h-3 w-3" />
-                        {new Date(request.requestedAt).toLocaleDateString('fr-FR')}
+                        {new Date(request.createdAt).toLocaleDateString('fr-FR')}
                       </p>
                     </div>
                     <div className="flex gap-2">
                       <button
-                        onClick={async () => {
-                          await api.put(`/connections/${request.id}/respond`, {
-                            status: 'ACCEPTED',
-                          });
-                          window.location.reload();
-                        }}
+                        onClick={() => handleRespond(request.id, 'ACCEPTED')}
                         className="p-2 bg-green-500 text-white rounded-lg hover:bg-green-600 transition-colors"
                       >
                         <CheckCircle className="h-5 w-5" />
                       </button>
                       <button
-                        onClick={async () => {
-                          await api.put(`/connections/${request.id}/respond`, {
-                            status: 'REJECTED',
-                          });
-                          window.location.reload();
-                        }}
+                        onClick={() => handleRespond(request.id, 'REJECTED')}
                         className="p-2 bg-red-500 text-white rounded-lg hover:bg-red-600 transition-colors"
                       >
                         <XCircle className="h-5 w-5" />
@@ -202,11 +178,8 @@ export function TherapistDashboard() {
           )}
         </div>
 
-        {/* Prochaines séances */}
         <div className="mb-6">
-          <h2 className="text-xl font-bold text-majorelle-500 mb-4">
-            Aujourd'hui
-          </h2>
+          <h2 className="text-xl font-bold text-majorelle-500 mb-4">Aujourd hui</h2>
           {upcomingSessions && upcomingSessions.length > 0 ? (
             <div className="space-y-3">
               {upcomingSessions.slice(0, 3).map((session: any) => (
@@ -217,30 +190,18 @@ export function TherapistDashboard() {
                   className="card-moroccan p-4 flex items-center gap-4"
                 >
                   <div className="w-14 h-14 rounded-lg bg-majorelle-100 flex flex-col items-center justify-center text-majorelle-500">
-                    <span className="text-lg font-bold">
-                      {new Date(session.scheduledAt).getDate()}
-                    </span>
-                    <span className="text-xs">
-                      {new Date(session.scheduledAt).toLocaleDateString('fr-FR', { month: 'short' })}
-                    </span>
+                    <span className="text-lg font-bold">{new Date(session.scheduledAt).getDate()}</span>
+                    <span className="text-xs">{new Date(session.scheduledAt).toLocaleDateString('fr-FR', { month: 'short' })}</span>
                   </div>
                   <div className="flex-1">
-                    <h3 className="font-bold text-gray-800">
-                      {session.patient.firstName} {session.patient.lastName}
-                    </h3>
+                    <h3 className="font-bold text-gray-800">{session.patient?.firstName} {session.patient?.lastName}</h3>
                     <p className="text-sm text-gray-500">
-                      {new Date(session.scheduledAt).toLocaleTimeString('fr-FR', {
-                        hour: '2-digit',
-                        minute: '2-digit',
-                      })}
+                      {new Date(session.scheduledAt).toLocaleTimeString('fr-FR', { hour: '2-digit', minute: '2-digit' })}
                       {' '}• {session.durationMinutes} min
                     </p>
                   </div>
-                  <Link
-                    href={`/therapist/sessions/${session.id}`}
-                    className="px-4 py-2 bg-majorelle-500 text-white rounded-lg hover:bg-majorelle-600 transition-colors"
-                  >
-                    Voir
+                  <Link href={`/patient/sessions/${session.id}/video`} className="px-4 py-2 bg-majorelle-500 text-white rounded-lg hover:bg-majorelle-600 transition-colors">
+                    Rejoindre
                   </Link>
                 </motion.div>
               ))}
@@ -248,15 +209,14 @@ export function TherapistDashboard() {
           ) : (
             <div className="card-moroccan p-8 text-center">
               <Calendar className="h-12 w-12 text-tadelakt-400 mx-auto mb-4" />
-              <p className="text-gray-600">Aucune séance aujourd'hui</p>
+              <p className="text-gray-600">Aucune seance aujourd hui</p>
             </div>
           )}
         </div>
 
-        {/* Graphique des revenus (simplifié) */}
         <div className="card-moroccan p-6">
           <div className="flex items-center justify-between mb-4">
-            <h3 className="font-bold text-majorelle-500">Activité récente</h3>
+            <h3 className="font-bold text-majorelle-500">Activite recente</h3>
             <BarChart3 className="h-5 w-5 text-safran-500" />
           </div>
           <div className="h-32 flex items-end gap-2">
@@ -266,19 +226,15 @@ export function TherapistDashboard() {
                 initial={{ height: 0 }}
                 animate={{ height: `${(session.price / 500) * 100}%` }}
                 transition={{ delay: index * 0.05 }}
-                className={`flex-1 rounded-t-lg ${
-                  session.status === 'COMPLETED' ? 'bg-majorelle-500' : 'bg-tadelakt-300'
-                }`}
+                className={`flex-1 rounded-t-lg ${session.status === 'COMPLETED' ? 'bg-majorelle-500' : 'bg-tadelakt-300'}`}
               />
             )) || (
-              <div className="w-full text-center text-gray-400 py-8">
-                Pas encore de données
-              </div>
+              <div className="w-full text-center text-gray-400 py-8">Pas encore de donnees</div>
             )}
           </div>
           <div className="flex justify-between mt-2 text-xs text-gray-500">
             <span>Il y a 7 jours</span>
-            <span>Aujourd'hui</span>
+            <span>Aujourd hui</span>
           </div>
         </div>
       </div>
