@@ -18,7 +18,7 @@ export function Navbar() {
             <Star className="h-8 w-8 text-safran-500" />
             <div className="hidden sm:block">
               <h1 className="text-xl font-amiri font-bold">Thérapie Maroc</h1>
-              <p className="text-xs text-tadelakt-200">Santé mentale, à la marocaine</p>
+              <p className="text-xs text-tadelakt-200">Nafs</p>
             </div>
           </Link>
 

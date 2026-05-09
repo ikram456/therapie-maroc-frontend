@@ -71,7 +71,7 @@ export function LoginForm() {
           <h1 className="text-3xl font-amiri font-bold text-majorelle-500 mb-2">
             Thérapie Maroc
           </h1>
-          <p className="text-bronze-500 italic">Santé mentale, à la marocaine</p>
+          <p className="text-bronze-500 italic">Nafs</p>
         </div>
 
         <div className="card-moroccan p-8">
