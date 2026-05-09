@@ -39,7 +39,7 @@ export default function Home() {
             transition={{ delay: 0.4 }}
             className="text-xl md:text-2xl text-tadelakt-200 mb-8"
           >
-            Santé mentale, à la marocaine
+            Nafs
           </motion.p>
 
           <motion.p
