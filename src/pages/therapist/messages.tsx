@@ -10,6 +10,8 @@ export default function TherapistMessagesPage() {
     return response.data.data;
   });
 
+  const accepted = connections?.filter((c: any) => c.status === 'ACCEPTED') || [];
+
   return (
     <Layout requireAuth allowedRoles={['THERAPIST']}>
       <div className="min-h-screen bg-tadelakt-50 pb-20">
@@ -23,21 +25,23 @@ export default function TherapistMessagesPage() {
             <div className="flex justify-center py-12">
               <div className="animate-spin h-12 w-12 border-t-4 border-majorelle-500 rounded-full" />
             </div>
-          ) : !connections?.length ? (
+          ) : accepted.length === 0 ? (
             <div className="card-moroccan p-12 text-center">
               <MessageCircle className="h-16 w-16 text-tadelakt-400 mx-auto mb-4" />
               <p className="text-gray-600">Aucun message pour le moment</p>
             </div>
           ) : (
             <div className="space-y-3">
-              {connections?.filter((c: any) => c.status === 'ACCEPTED').map((c: any) => (
-                <Link key={c.id} href={`/patient/messages/${c.id}`}>
-                  <div className="card-moroccan p-4 flex items-center gap-4 hover:shadow-xl transition-shadow">
+              {accepted.map((c: any) => (
+                <Link key={c.id} href={`/therapist/messages/${c.id}`}>
+                  <div className="card-moroccan p-4 flex items-center gap-4 hover:shadow-xl transition-shadow cursor-pointer">
                     <div className="w-12 h-12 rounded-full bg-majorelle-100 flex items-center justify-center text-majorelle-500 font-bold">
-                      {c.patient?.firstName?.[0]}
+                      {c.patient?.firstName?.[0] || '?'}
                     </div>
                     <div>
-                      <h3 className="font-bold">{c.patient?.firstName} {c.patient?.lastName}</h3>
+                      <h3 className="font-bold">
+                        {c.patient?.firstName || 'Patient'} {c.patient?.lastName || ''}
+                      </h3>
                       <p className="text-sm text-gray-500">Cliquer pour ouvrir la conversation</p>
                     </div>
                   </div>
